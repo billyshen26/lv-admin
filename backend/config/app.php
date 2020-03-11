@@ -175,6 +175,9 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
 
+        Spatie\Permission\PermissionServiceProvider::class, // 权限 https://docs.spatie.be/laravel-permission/v3/installation-laravel/
+
+        App\Providers\ResponseMacroServiceProvider::class, // 格式化输出
     ],
 
     /*

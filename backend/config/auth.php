@@ -14,7 +14,7 @@ return [
     */
 
     'defaults' => [
-        'guard' => 'web',
+        'guard' => 'api',
         'passwords' => 'users',
     ],
 
@@ -34,17 +34,14 @@ return [
     | Supported: "session", "token"
     |
     */
-
     'guards' => [
+        'api' => [  // 好像有个bug，要把api提前,因为现在默认是这里的第一条数据，上面的defaults没起作用，有待解决，具体代码在 Spatie\Permission\Guard;
+            'driver' => 'jwt',
+            'provider' => 'users',
+        ],
         'web' => [
             'driver' => 'session',
             'provider' => 'users',
-        ],
-
-        'api' => [
-            'driver' => 'token',
-            'provider' => 'users',
-            'hash' => false,
         ],
     ],
 
