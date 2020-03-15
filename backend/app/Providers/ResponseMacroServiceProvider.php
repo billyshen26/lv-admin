@@ -52,7 +52,7 @@ class ResponseMacroServiceProvider extends ServiceProvider
                 $result = [];
             }
             $response_data = [
-                'code' => 1,
+                'code' => 20000,
                 'data' => $result,
             ];
 

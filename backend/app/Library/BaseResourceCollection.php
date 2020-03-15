@@ -25,7 +25,7 @@ class BaseResourceCollection extends ResourceCollection
             'pagination' => [
                 'total' => $this->total(),
                 'current_page' => $this->currentPage(),
-                'per_page' => $this->perPage()
+                'limit' => $this->perPage()
             ],
         ];
     }

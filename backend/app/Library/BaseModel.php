@@ -15,7 +15,7 @@ class BaseModel extends Model
     public function __construct(array $attributes = [])
     {
         parent::__construct($attributes);
-        $this->perPage = \Request::get('per_page') ?: 15;
+        $this->perPage = \Request::get('limit') ?: 15;
     }
 
 }

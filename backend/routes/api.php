@@ -27,11 +27,13 @@ Route::group([
 });
 
 /**
- * 基础接口
+ * 用户额外接口,应配置在基础接口之前，否则users/info，会变成请求id为info的user，而报错
  */
-Route::group(['middleware' => 'auth:api'], function () {
-    Route::apiResource('articles','ArticleController');
-    Route::apiResource('users','UserController');
+Route::group([
+    'prefix' => 'users',
+    'middleware' => 'auth:api'
+], function ($router) {
+    Route::get('info', 'UserController@info');
 });
 
 /**
@@ -44,4 +46,13 @@ Route::group([
     Route::post('publish', 'ArticleController@publish');
     Route::post('unpublish', 'ArticleController@unpublish');
 });
+
+/**
+ * 基础接口
+ */
+Route::group(['middleware' => 'auth:api'], function () {
+    Route::apiResource('articles','ArticleController');
+    Route::apiResource('users','UserController');
+});
+
 

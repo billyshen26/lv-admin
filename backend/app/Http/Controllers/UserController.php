@@ -82,4 +82,21 @@ class UserController extends Controller
     {
         //
     }
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function info()
+    {
+        $me = auth()->user();
+        return response()->success([
+            'roles' => $me->getAllPermissionsWithWildcard(),
+            'introduction' => 'I am a super administrator2',
+            'avatar' => 'https://wpimg.wallstcn.com/f778738c-e4f8-4870-b634-56703b4acafe.gif',
+            'name' => $me->name,
+        ]);
+    }
+
 }
