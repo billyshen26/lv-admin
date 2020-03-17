@@ -40,23 +40,23 @@
           <span>{{ row.id }}</span>
         </template>
       </el-table-column>
-      <!-- <el-table-column label="Date" width="150px" align="center">
+      <el-table-column label="Date" width="150px" align="center">
         <template slot-scope="{row}">
-          <span>{{ row.timestamp | parseTime('{y}-{m}-{d} {h}:{i}') }}</span>
+          <span>{{ row.updated_at | parseTime('{y}-{m}-{d} {h}:{i}') }}</span>
         </template>
-      </el-table-column> -->
+      </el-table-column>
       <el-table-column label="Title" min-width="150px">
         <template slot-scope="{row}">
           <span class="link-type" @click="handleUpdate(row)">{{ row.title }}</span>
           <el-tag>{{ row.type | typeFilter }}</el-tag>
         </template>
       </el-table-column>
-      <!-- <el-table-column label="Author" width="110px" align="center">
+      <el-table-column label="Author" width="110px" align="center">
         <template slot-scope="{row}">
           <span>{{ row.author }}</span>
         </template>
       </el-table-column>
-      <el-table-column v-if="showReviewer" label="Reviewer" width="110px" align="center">
+      <!-- <el-table-column v-if="showReviewer" label="Reviewer" width="110px" align="center">
         <template slot-scope="{row}">
           <span style="color:red;">{{ row.reviewer }}</span>
         </template>
@@ -78,23 +78,23 @@
             {{ row.status }}
           </el-tag>
         </template>
-      </el-table-column>
+      </el-table-column> -->
       <el-table-column label="Actions" align="center" width="230" class-name="small-padding fixed-width">
         <template slot-scope="{row,$index}">
           <el-button type="primary" size="mini" @click="handleUpdate(row)">
             Edit
           </el-button>
-          <el-button v-if="row.status!='published'" size="mini" type="success" @click="handleModifyStatus(row,'published')">
+          <el-button v-if="row.status==1" size="mini" type="success" @click="handleModifyStatus(row,2)">
             Publish
           </el-button>
-          <el-button v-if="row.status!='draft'" size="mini" @click="handleModifyStatus(row,'draft')">
+          <el-button v-if="row.status==2" size="mini" @click="handleModifyStatus(row,1)">
             Draft
           </el-button>
-          <el-button v-if="row.status!='deleted'" size="mini" type="danger" @click="handleDelete(row,$index)">
+          <el-button size="mini" type="danger" @click="handleDelete(row,$index)">
             Delete
           </el-button>
         </template>
-      </el-table-column> -->
+      </el-table-column>
     </el-table>
 
     <pagination v-show="total>0" :total="total" :page.sync="listQuery.page" :limit.sync="listQuery.limit" @pagination="getList" />
@@ -147,7 +147,7 @@
 </template>
 
 <script>
-import { fetchList, fetchPv, createArticle, updateArticle } from '@/api/article'
+import { fetchList, fetchPv, createArticle, updateArticle, deleteArticle } from '@/api/article'
 import waves from '@/directive/waves' // waves directive
 import { parseTime } from '@/utils'
 import Pagination from '@/components/Pagination' // secondary package based on el-pagination
@@ -334,13 +334,24 @@ export default {
       })
     },
     handleDelete(row, index) {
-      this.$notify({
-        title: 'Success',
-        message: 'Delete Successfully',
-        type: 'success',
-        duration: 2000
+      // this.$notify({
+      //   title: 'Success',
+      //   message: 'Delete Successfully',
+      //   type: 'success',
+      //   duration: 2000
+      // })
+      // this.list.splice(index, 1)
+      deleteArticle(row.id).then(() => {
+        // const index = this.list.findIndex(v => v.id === this.temp.id)
+        // this.list.splice(index, 1, this.temp)
+        // this.dialogFormVisible = false
+        this.$notify({
+          title: 'Success',
+          message: 'Update Successfully',
+          type: 'success',
+          duration: 2000
+        })
       })
-      this.list.splice(index, 1)
     },
     handleFetchPv(pv) {
       fetchPv(pv).then(response => {

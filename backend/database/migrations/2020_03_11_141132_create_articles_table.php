@@ -17,9 +17,10 @@ class CreateArticlesTable extends Migration
             $table->bigIncrements('id')->comment('自增主键');
             $table->string('title')->comment('标题');
             $table->text('body')->comment('内容');
-            $table->timestamps();
-            $table->tinyInteger('status')->comment('状态');
+            $table->tinyInteger('status')->comment('状态:1.草稿,2.已发布');
             $table->unsignedBigInteger('user_id')->comment('外键，来自用户表');
+            $table->timestamps();
+            $table->softDeletes();
             $table->foreign('user_id')->references('id')->on('users');
         });
     }

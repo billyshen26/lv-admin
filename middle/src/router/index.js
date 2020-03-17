@@ -84,6 +84,7 @@ export const constantRoutes = [
       }
     ]
   },
+  articleRouter,
   {
     path: '/documentation',
     component: Layout,
@@ -190,7 +191,6 @@ export const asyncRoutes = [
   chartsRouter,
   nestedRouter,
   tableRouter,
-  articleRouter,
 
   {
     path: '/example',
