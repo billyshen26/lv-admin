@@ -22,7 +22,7 @@ define('LARAVEL_START', microtime(true));
 */
 
 require __DIR__.'/../vendor/autoload.php';
-
+require __DIR__.'/../app/Library/Zcwilt/autoload.php';
 /*
 |--------------------------------------------------------------------------
 | Turn On The Lights

@@ -5,12 +5,20 @@ namespace App\Http\Controllers;
 use App\Article;
 use App\Http\Resources\ArticleCollection;
 use Illuminate\Http\Request;
+use Zcwilt\Api\Controllers\ApiController;
+use Zcwilt\Api\ModelMakerFactory;
+//$vendorDir = dirname(dirname(__FILE__));
+//include $vendorDir.'/app/Library/Controllers/ApiController.php';
 
-class ArticleController extends Controller
+class ArticleController extends ApiController
 {
+    protected $modelName = 'Article';
 
-    public function __construct()
+    public function __construct(
+        ModelMakerFactory $modelMaker
+    )
     {
+        parent::__construct($modelMaker);
         $this->middleware('permission:article.index');
         $this->middleware('permission:article.store', ['only' => ['store']]);
         $this->middleware('permission:article.update', ['only' => ['update']]);
@@ -19,64 +27,64 @@ class ArticleController extends Controller
         $this->middleware('permission:article.unpublish', ['only' => ['unpublish']]);
     }
 
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        $data = new ArticleCollection(Article::with('user')->paginate());
-        return response()->success($data);
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        $article = Article::create($request->all());
-        return response()->success($article);
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Article  $article
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Article $article)
-    {
-        return response()->success($article);
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Article  $article
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Article $article)
-    {
-        $article->update($request->all());
-        return response()->success($article);
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Article  $article
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Article $article)
-    {
-        $article->delete();
-        return response()->success(null);
-    }
+//    /**
+//     * Display a listing of the resource.
+//     *
+//     * @return \Illuminate\Http\Response
+//     */
+//    public function index()
+//    {
+//        $data = new ArticleCollection(Article::with('user')->paginate());
+//        return response()->success($data);
+//    }
+//
+//    /**
+//     * Store a newly created resource in storage.
+//     *
+//     * @param  \Illuminate\Http\Request  $request
+//     * @return \Illuminate\Http\Response
+//     */
+//    public function store(Request $request)
+//    {
+//        $article = Article::create($request->all());
+//        return response()->success($article);
+//    }
+//
+//    /**
+//     * Display the specified resource.
+//     *
+//     * @param  \App\Article  $article
+//     * @return \Illuminate\Http\Response
+//     */
+//    public function show(Article $article)
+//    {
+//        return response()->success($article);
+//    }
+//
+//    /**
+//     * Update the specified resource in storage.
+//     *
+//     * @param  \Illuminate\Http\Request  $request
+//     * @param  \App\Article  $article
+//     * @return \Illuminate\Http\Response
+//     */
+//    public function update(Request $request, Article $article)
+//    {
+//        $article->update($request->all());
+//        return response()->success($article);
+//    }
+//
+//    /**
+//     * Remove the specified resource from storage.
+//     *
+//     * @param  \App\Article  $article
+//     * @return \Illuminate\Http\Response
+//     */
+//    public function destroy(Article $article)
+//    {
+//        $article->delete();
+//        return response()->success(null);
+//    }
 
     /**
      * Notes:
