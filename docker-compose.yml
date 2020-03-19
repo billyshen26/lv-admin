@@ -3,7 +3,8 @@ services:
   nginx:
     build: ./conf/nginx
     ports:
-      - ${NGINX_PORT}:80
+      - ${NGINX_BACKEND_PORT}:80
+      - ${NGINX_MIDDLE_PORT}:84
     volumes:
       - ${APPLICATION}:/var/www/html:rw
       - ${LOG_PATH}:/var/log/nginx:rw
@@ -18,8 +19,6 @@ services:
     build: ./conf/php/
     ports:
       - ${PHPFPM_PORT}:9000
-      - 9003:9003/udp
-      - 2346:2346
     volumes:
       - ${APPLICATION}:/var/www/html:rw
       - ${LOG_PATH}:/var/log:rw
@@ -28,6 +27,17 @@ services:
     restart: always
     networks:
       - webnet
+
+  node:
+    build: ./conf/node/
+    ports:
+      - ${NODE_DEV_PORT}:9527
+    volumes:
+      - ${APPLICATION}:/srv:rw
+    tty: true
+    networks:
+      - webnet
+
   mysql:
     build: ./conf/mysql
     ports:
@@ -68,22 +78,6 @@ services:
     restart: always
     networks:
       - webnet
-  golang:
-    build: ./conf/golang
-    ports:
-      - ${GOLANG_PORT}:1082
-    volumes:
-      - ${APPLICATION}:/go/src
-    tty: true
-    network_mode: "host"    # 在linux下，解决docker网络的原因无法访问到宿主机所在的局域网中其他的设备的问题(mac和win不行)
-#    networks:
-#      - webnet
-#  init:
-#    build: ./conf/init
-#    volumes:
-#      - ${APPLICATION}:/var/www/html:rw
-#    networks:
-#      - webnet
 
 networks:
   webnet:

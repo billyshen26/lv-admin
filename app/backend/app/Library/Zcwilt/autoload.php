@@ -1,4 +1,6 @@
 <?php
+
+    // https://github.com/zcwilt/rest-api  好项目，可惜star太少
     date_default_timezone_set('PRC');
 
     class Autoload

@@ -72,6 +72,11 @@ export const constantRoutes = [
     hidden: true
   },
   {
+    path: '/free-taste',
+    component: () => import('@/views/activity/free-taste'),
+    hidden: true
+  },
+  {
     path: '/',
     component: Layout,
     redirect: '/dashboard',
