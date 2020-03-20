@@ -3,12 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Article;
-use App\Http\Resources\ArticleCollection;
 use Illuminate\Http\Request;
 use Zcwilt\Api\Controllers\ApiController;
 use Zcwilt\Api\ModelMakerFactory;
-//$vendorDir = dirname(dirname(__FILE__));
-//include $vendorDir.'/app/Library/Controllers/ApiController.php';
 
 class ArticleController extends ApiController
 {

@@ -6,7 +6,8 @@ RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 
 # 使用 阿里源 替换
 RUN sed -i "s@http://deb.debian.org@http://mirrors.aliyun.com@g" /etc/apt/sources.list
-RUN sed -i "s@http://security-cdn.debian.org@http://mirrors.aliyun.com@g" /etc/apt/sources.list  # 替换似乎没有成功,待完善
+# 替换似乎没有成功,待完善
+RUN sed -i "s@http://security-cdn.debian.org@http://mirrors.aliyun.com@g" /etc/apt/sources.list
 
 RUN apt-get update && apt-get install -y \
         libfreetype6-dev \
@@ -69,7 +70,7 @@ ENV PATH $COMPOSER_HOME/vendor/bin:$PATH
 #WORKDIR /var/www/html
 
 ##更改国内源
-CMD composer config -g repo.packagist composer https://mirrors.aliyun.com/composer/
+#CMD composer config -g repo.packagist composer https://mirrors.aliyun.com/composer/ \
 #&& chmod -R 777 . \
 #&& composer install \
 #&& php think migrate:run \
