@@ -20,7 +20,7 @@ services:
     ports:
       - ${PHPFPM_PORT}:9000
     volumes:
-      - ${APPLICATION}:/var/www/html:cached
+      - ${APPLICATION}/backend:/var/www/html:cached
       - ${LOG_PATH}:/var/log:cached
       - ${PHP_INI_PATH}:/usr/local/etc/php/php.ini:ro
       - ${PHP_FPM_PATH}:/usr/local/etc/php-fpm.d/www.conf:rw
@@ -33,7 +33,7 @@ services:
     ports:
       - ${NODE_DEV_PORT}:9527
     volumes:
-      - ${APPLICATION}:/srv:cached
+      - ${APPLICATION}/middle:/srv:cached
     tty: true
     networks:
       - webnet
